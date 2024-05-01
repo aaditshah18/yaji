@@ -1,0 +1,45 @@
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+  ],
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["react-refresh"],
+  rules: {
+    "semi": 1,
+    "quotes": 1,
+    "newline-after-var": 1,
+    "react-refresh/only-export-components": [
+      "warn",
+      { allowConstantExport: true },
+    ],
+    "indent": [1, 2],
+    "object-curly-spacing": [1, "always"],
+    "react/jsx-boolean-value": 1,
+    "react/jsx-indent": [2, 2],
+    "react/jsx-indent-props": [2, 2],
+    "react/jsx-props-no-multi-spaces": 1,
+    "react/jsx-one-expression-per-line": 1,
+    "react/jsx-closing-tag-location": 1,
+    "react/jsx-first-prop-new-line": 1,
+    "react/jsx-max-props-per-line": 1,
+    "react/jsx-closing-bracket-location": [1, "tag-aligned"],
+    "react/jsx-tag-spacing": [1, {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never",
+      "beforeClosing": "allow"
+    }],
+    "react/no-unescaped-entities": 0,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-curly-spacing": [1, "never"],
+    "react-hooks/exhaustive-deps": "off",
+    "no-unused-vars": "off"
+  },
+};
