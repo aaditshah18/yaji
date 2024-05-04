@@ -2,6 +2,8 @@ import { Note } from "../../types/note";
 import { useEffect, useRef, useState } from "react";
 import { VerticalDots } from "../Icons";
 import { Card } from "../Card";
+import Popover from "../Popover";
+import NoteSettings from "./Settings.tsx";
 
 type Props = {
   note?: Note
@@ -37,7 +39,9 @@ export default function NoteCard(props: Props) {
         <div className="text-gray-600 text-sm font-thin self-center dark:text-zinc-300">
           {new Date(Number(note.creationDate)).toDateString()}
         </div>
-        <VerticalDots />
+        <Popover content={<NoteSettings />}>
+          <VerticalDots className="select-none" />
+        </Popover>
       </div>
       <p
         ref={contentRef}
