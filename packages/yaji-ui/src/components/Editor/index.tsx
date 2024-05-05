@@ -12,7 +12,7 @@ export default function Editor() {
     content,
     editorProps: {
       attributes: {
-        class: "h-screen focus:outline-none dark:text-zinc-200"
+        class: "focus:outline-none dark:text-zinc-200"
       }
     }
   });
@@ -28,7 +28,21 @@ export default function Editor() {
     return null;
   }
 
+  const handleFocusEditor = () => {
+    if (editor) {
+      editor.commands.focus("end");
+    }
+  };
+
   return (
-    <EditorContent editor={editor} />
+    <div
+      className="h-full"
+      onClick={handleFocusEditor}
+    >
+      <div className="text-gray-800 text-xs font-thin mb-2 dark:text-zinc-300">
+        Jan Fri 1970 08:30
+      </div>
+      <EditorContent editor={editor} />
+    </div>
   );
 }
