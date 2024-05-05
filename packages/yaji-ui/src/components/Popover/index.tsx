@@ -41,15 +41,15 @@ export default function Popover(props: Props) {
 
   const handleClickTrigger: MouseEventHandler<HTMLDivElement> = () => {
     if (onOpenChange) {
-      onOpenChange(true);
+      onOpenChange(!open);
     } else {
-      setShow(true);
+      setShow(s => !s);
     }
   };
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+    function handleClickOutside(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
         if (onOpenChange) {
           onOpenChange(false);
         } else {
@@ -58,7 +58,7 @@ export default function Popover(props: Props) {
       }
     }
 
-    if (show) {
+    if (show || onOpenChange) {
       document.addEventListener("mousedown", handleClickOutside);
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
