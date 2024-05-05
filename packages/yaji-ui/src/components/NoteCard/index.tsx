@@ -39,7 +39,7 @@ export default function NoteCard(props: Props) {
         <div className="text-gray-600 text-sm font-thin self-center dark:text-zinc-300">
           {new Date(Number(note.creationDate)).toDateString()}
         </div>
-        <Popover content={<NoteSettings />}>
+        <Popover content={<NoteSettings noteId={note._id} />}>
           <VerticalDots className="select-none" />
         </Popover>
       </div>
