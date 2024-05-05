@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
 import { Copy, Edit, Share } from "../Icons";
 import { Menu } from "../Menu";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 type Props = {
   noteId: string;
+  onClickEdit: (noteId: string) => void;
 }
 
 const MENU_ITEMS: {
@@ -40,13 +40,20 @@ const MENU_ITEMS: {
 ];
 
 export default function Settings (props: Props) {
+  const { noteId, onClickEdit } = props;
+
+  const handleClickEdit: MouseEventHandler<SVGSVGElement> = () => {
+    onClickEdit(noteId);
+  };
+
   return (
     <>
       <div className="w-48 border-b py-4 px-5 flex justify-between dark:border-zinc-600">
         <Share className="cursor-pointer" />
-        <Link to={`/note/edit/${props.noteId}`}>
-          <Edit className="cursor-pointer" />
-        </Link>
+        <Edit
+          className="cursor-pointer"
+          onClick={handleClickEdit}
+        />
         <Copy className="cursor-pointer" />
       </div>
       <Menu>

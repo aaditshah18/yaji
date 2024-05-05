@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { MouseEventHandler, ReactNode, useEffect, useRef, useState } from "react";
 
 type Props = {
   children: ReactNode
@@ -26,6 +26,14 @@ export default function Popover({
     }
   };
 
+  const handleClickTrigger: MouseEventHandler<HTMLDivElement> = () => {
+    setShow(s => !s);
+  };
+
+  const handleClickContent: MouseEventHandler<HTMLDivElement> = () => {
+    setShow(false);
+  };
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -50,7 +58,7 @@ export default function Popover({
     >
       <div
         className={trigger === "click" ? "cursor-pointer" : ""}
-        onClick={() => setShow(!show)}
+        onClick={handleClickTrigger}
       >
         {children}
       </div>
@@ -58,7 +66,10 @@ export default function Popover({
         hidden={!show}
         className="min-w-fit h-fit absolute top-5 right-2 z-50 transition-all"
       >
-        <div className="rounded-lg bg-white shadow-lg border dark:border-zinc-700 dark:bg-zinc-800">
+        <div
+          className="rounded-lg bg-white shadow-lg border dark:border-zinc-700 dark:bg-zinc-800"
+          onClick={handleClickContent}
+        >
           {content}
         </div>
       </div>
