@@ -16,10 +16,8 @@ export default function NoteCard(props: Props) {
   const [showDetailButton, setShowDetailButton] = useState(false);
   const [showFullContent, setShowFullContent] = useState(false);
   const [isOpenEditDrawer, setIsOpenEditDrawer] = useState(false);
-  const toggleEditDrawer = () => {
-    setIsOpenEditDrawer((prevState) => !prevState);
-  };
-  
+  const [isPopoverOpened, setIsPopoverOpened] = useState(false);
+
   useEffect(() => {
     if (!contentRef || !contentRef.current) {
       return;
@@ -34,12 +32,21 @@ export default function NoteCard(props: Props) {
     );
   }
 
+  const toggleEditDrawer = () => {
+    setIsOpenEditDrawer((prevState) => !prevState);
+  };
+
   const handleCollapseClick = () => {
     setShowFullContent(s => !s);
   };
 
   const handleEditClick = () => {
     toggleEditDrawer();
+    setIsPopoverOpened(false);
+  };
+
+  const handlePopoverOpenChange = (o: boolean) => {
+    setIsPopoverOpened(o);
   };
 
   return (
@@ -49,12 +56,15 @@ export default function NoteCard(props: Props) {
           <div className="text-gray-600 text-sm font-thin self-center dark:text-zinc-300">
             {new Date(Number(note.creationDate)).toDateString()}
           </div>
-          <Popover content={
-            <NoteSettings
-              noteId={note._id}
-              onClickEdit={handleEditClick}
-            />
-          }
+          <Popover
+            open={isPopoverOpened}
+            content={
+              <NoteSettings
+                noteId={note._id}
+                onClickEdit={handleEditClick}
+              />
+            }
+            onOpenChange={handlePopoverOpenChange}
           >
             <VerticalDots className="select-none" />
           </Popover>

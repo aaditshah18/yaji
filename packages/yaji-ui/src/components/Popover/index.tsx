@@ -4,40 +4,57 @@ type Props = {
   children: ReactNode
   content?: ReactNode
   trigger?: "hover" | "click"
+  open?: boolean
+  onOpenChange?: (o: boolean) => void
 }
 
-export default function Popover({
-  children,
-  content,
-  trigger = "click"
-}: Props) {
+export default function Popover(props: Props) {
+  const {
+    children,
+    content,
+    trigger = "click",
+    open= false,
+    onOpenChange,
+  } = props;
   const [show, setShow] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleMouseOver = () => {
     if (trigger === "hover") {
-      setShow(true);
+      if (onOpenChange) {
+        onOpenChange(true);
+      } else {
+        setShow(true);
+      }
     }
   };
 
   const handleMouseLeft = () => {
     if (trigger === "hover") {
-      setShow(false);
+      if (onOpenChange) {
+        onOpenChange(false);
+      } else {
+        setShow(false);
+      }
     }
   };
 
   const handleClickTrigger: MouseEventHandler<HTMLDivElement> = () => {
-    setShow(s => !s);
-  };
-
-  const handleClickContent: MouseEventHandler<HTMLDivElement> = () => {
-    setShow(false);
+    if (onOpenChange) {
+      onOpenChange(true);
+    } else {
+      setShow(true);
+    }
   };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setShow(false);
+        if (onOpenChange) {
+          onOpenChange(false);
+        } else {
+          setShow(false);
+        }
       }
     }
 
@@ -63,13 +80,10 @@ export default function Popover({
         {children}
       </div>
       <div
-        hidden={!show}
+        hidden={!show && !open}
         className="min-w-fit h-fit absolute top-5 right-2 z-50 transition-all"
       >
-        <div
-          className="rounded-lg bg-white shadow-lg border dark:border-zinc-700 dark:bg-zinc-800"
-          onClick={handleClickContent}
-        >
+        <div className="rounded-lg bg-white shadow-lg border dark:border-zinc-700 dark:bg-zinc-800">
           {content}
         </div>
       </div>
