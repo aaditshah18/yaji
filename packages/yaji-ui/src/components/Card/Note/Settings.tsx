@@ -1,5 +1,5 @@
-import { Copy, Edit, Share } from "../Icons";
-import { Menu } from "../Menu";
+import { Copy, Edit, Share } from "../../Icons";
+import { Menu } from "../../Menu";
 import { MouseEventHandler, ReactNode } from "react";
 
 type Props = {

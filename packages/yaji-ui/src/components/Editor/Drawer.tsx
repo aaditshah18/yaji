@@ -20,6 +20,7 @@ export default function NoteEditDrawer(props: Props) {
         duration={400}
         overlayOpacity={0.6}
         size={"90%"}
+        lockBackgroundScroll
       >
         <div
           className="ps-3 py-6 cursor-pointer"

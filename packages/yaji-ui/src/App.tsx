@@ -1,7 +1,8 @@
 import PageHeader from "./components/PageHeader";
-import NoteCard from "./components/NoteCard";
+import NoteCard from "./components/Card/Note";
 import GitHubLink from "./components/GitHubLink";
 import ThemeToggle from "./components/ThemeToggle";
+import { DATA_SET } from "./types/dataset.ts";
 
 function App() {
   return (
@@ -16,21 +17,15 @@ function App() {
         </div>
       </PageHeader>
 
-      <div className="p-2 flex flex-col space-y-4">
-        <NoteCard note={{
-          _id: "123",
-          title: "",
-          creationDate: "1714840940",
-          content: "Block quotations are not surrounded by any quotation marks. The punctuation at the end of the block quotation goes before the citation. The ending citation is included on the last line of the block quotation. The text after the block quotation begins on its own line, with no indentation.Block quotations are not surrounded by any quotation marks. The punctuation at the end of the block quotation goes before the citation. The ending citation is included on the last line of the block quotation. The text after the block quotation begins on its own line, with no indentation.Block quotations are not surrounded by any quotation marks. The punctuation at the end of the block quotation goes before the citation. The ending citation is included on the last line of the block quotation. The text after the block quotation begins on its own line, with no indentation.",
-        }}
-        />
-        <NoteCard note={{
-          _id: "1234",
-          title: "",
-          creationDate: "1714840000",
-          content: "Block quotations are not surrounded by any quotation marks. ",
-        }}
-        />
+      <div className="flex justify-center">
+        <div className="p-2 flex flex-col space-y-4">
+          {DATA_SET.map(d => (
+            <NoteCard
+              key={d._id}
+              note={d}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
