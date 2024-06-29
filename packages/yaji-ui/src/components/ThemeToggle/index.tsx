@@ -1,8 +1,18 @@
-import useTheme from "../../hooks/useTheme.tsx";
+import { ThemeContext } from "../../contexts/ThemeContext.tsx";
 import { Moon, Sun } from "../Icons";
+import { SVGProps, useContext } from "react";
 
 export default function ThemeToggle () {
-  const { theme, toggleTheme } = useTheme();
+  const themeContext = useContext(ThemeContext);
 
-  return theme === "light" ? <Sun onClick={toggleTheme} /> : <Moon onClick={toggleTheme} />;
+  if (themeContext === null) {
+    return null;
+  }
+
+  const iconProps: SVGProps<SVGSVGElement> = {
+    className: "cursor-pointer hover:opacity-75",
+    onClick: () => themeContext.toggleTheme(),
+  };
+
+  return themeContext.theme === "light" ? <Sun {...iconProps} /> : <Moon {...iconProps} />;
 }
